@@ -1,0 +1,43 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: mall-admin
+  profiles:
+    active: dev #默认为开发环境
+  devtools:
+    restart:
+      enabled: true  #设置开启热部署
+      additional-paths: src/main/java #重启目录
+      exclude: WEB-INF/**
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.wafer.commerce.entity
+
+jwt:
+  secret: 8omiGfwwLVD5MgjZTKjAkIcAGFw8DTZ86E56pfJX5z8=
+  expiration: 3600  # Token有效期，单位为秒
+  tokenHeader: Authorization
+  tokenHead: Bearer
+
+secure:
+  ignored:
+    urls: #安全路径白名单
+      - /swagger-ui/
+      - /v3/api-docs/*
+      - /*/*.html
+      - /*/*.js
+      - /*/*.css
+      - /*/*.png
+      - /favicon.ico
+      - /actuator/**
+      - /druid/**
+      - /auth/login
+      - /auth/register
+      - /auth/info
+      - /auth/logout
+      - /auth/upload
+      - /auth/wxLogin

@@ -6,6 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.2.4</version>
+		<relativePath/> <!-- 从远程仓库中查找父 POM 文件 -->
 	</parent>
 	<groupId>com.example</groupId>
 	<artifactId>commerce</artifactId>
@@ -14,10 +15,8 @@
 	<name>wafer_single_electronic_commerce</name>
 	<description>wafer_single_electronic_commerce</description>
 	<modules>
-		<module>common</module>
 		<module>admin</module>
 		<module>common</module>
-		<module>admin</module>
 		<module>portal</module>
 		<module>security</module>
 		<module>mgb</module>
@@ -28,13 +27,24 @@
 		<java.version>17</java.version>
 		<spring-boot.version>3.2.4</spring-boot.version>
 		<lombok.version>1.18.26</lombok.version>
-		<mybatis-plus.version>3.5.5</mybatis-plus.version>
+		<mybatis-plus.version>3.5.3.2</mybatis-plus.version>
 		<mysql-connector.version>8.0.33</mysql-connector.version>
-		<pagehelper-starter.version>2.1.0</pagehelper-starter.version>		<druid.version>1.2.21</druid.version>
+		<pagehelper-starter.version>2.1.0</pagehelper-starter.version>
 		<druid.version>1.2.21</druid.version>
-		<hutool.version>5.8.16</hutool.version>
+		<hutool.version>5.8.25</hutool.version>
 		<springdoc-openapi.version>2.3.0</springdoc-openapi.version>
 		<logstash-logback.version>7.4</logstash-logback.version>
+		<jjwt.version>0.9.1</jjwt.version>
+		<jaxb-api.version>2.3.1</jaxb-api.version>
+		<mybatis-generator.version>1.4.2</mybatis-generator.version>
+        <mybatis-spring-boot-starter.version>2.3.0</mybatis-spring-boot-starter.version>
+		<mybatis-spring-boot.version>2.2.0</mybatis-spring-boot.version>
+		<common.version>1.0-SNAPSHOT</common.version>
+		<security.version>1.0-SNAPSHOT</security.version>
+		<mgb.version>1.0-SNAPSHOT</mgb.version>
+		<swagger-annotations.version>2.2.22</swagger-annotations.version>
+		<mybatis-plus.version>3.5.7</mybatis-plus.version>
+		<spring-boot-devtools.version>3.2.4</spring-boot-devtools.version>
 	</properties>
 
 	<dependencies>
@@ -86,15 +96,58 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!--解决JDK 11 兼容性问题-->
+		<dependency>
+			<groupId>javax.xml.bind</groupId>
+			<artifactId>jaxb-api</artifactId>
+			<version>${jaxb-api.version}</version>
+		</dependency>
+
+		<!--Hutool Java工具包-->
+		<dependency>
+			<groupId>cn.hutool</groupId>
+			<artifactId>hutool-all</artifactId>
+			<version>${hutool.version}</version>
+		</dependency>
+
+		<!-- swagger-->
+		<dependency>
+        <groupId>io.swagger.core.v3</groupId>
+        <artifactId>swagger-annotations</artifactId>
+        <version>${swagger-annotations.version}</version>
+    	</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<version>${spring-boot-devtools.version}</version>
+			<optional>true</optional>
+			<scope>true</scope>
+		</dependency>
+
+
+
 	</dependencies>
 
 	<dependencyManagement>
 		<dependencies>
-			<!-- MyBatis Plus Starter -->
+
 			<dependency>
-				<groupId>com.baomidou</groupId>
-				<artifactId>mybatis-plus-boot-starter</artifactId>
-				<version>${mybatis-plus.version}</version>
+				<groupId>com.wafer.commerce</groupId>
+				<artifactId>common</artifactId>
+				<version>${common.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.wafer.commerce</groupId>
+				<artifactId>security</artifactId>
+				<version>${security.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.wafer.commerce</groupId>
+				<artifactId>mgb</artifactId>
+				<version>${mgb.version}</version>
 			</dependency>
 
 			<!-- MySQL Connector -->
@@ -111,6 +164,15 @@
 				<version>${pagehelper-starter.version}</version>
 			</dependency>
 
+			<!-- MyBatis Plus Starter -->
+
+			<dependency>
+				<groupId>com.baomidou</groupId>
+				<artifactId>mybatis-plus-spring-boot3-starter</artifactId>
+				<version>${mybatis-plus.version}</version>
+			</dependency>
+
+
 			<!--集成druid连接池-->
 			<dependency>
 				<groupId>com.alibaba</groupId>
@@ -125,12 +187,6 @@
 				<version>${springdoc-openapi.version}</version>
 			</dependency>
 
-			<!--Hutool Java工具包-->
-			<dependency>
-				<groupId>cn.hutool</groupId>
-				<artifactId>hutool-all</artifactId>
-				<version>${hutool.version}</version>
-			</dependency>
 
 			<!--集成logstash-->
 			<dependency>
@@ -138,6 +194,34 @@
 				<artifactId>logstash-logback-encoder</artifactId>
 				<version>${logstash-logback.version}</version>
 			</dependency>
+
+			<!--JWT(Json Web Token)登录支持-->
+			<dependency>
+				<groupId>io.jsonwebtoken</groupId>
+				<artifactId>jjwt</artifactId>
+				<version>${jjwt.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mybatis.spring.boot</groupId>
+				<artifactId>mybatis-spring-boot-starter</artifactId>
+				<version>${mybatis-spring-boot.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-core</artifactId>
+				<version>${mybatis-generator.version}</version>
+			</dependency>
+
+<!--			<dependency>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-devtools</artifactId>-->
+<!--				<version>${spring-boot-devtools.version}</version>-->
+<!--			</dependency>-->
+
+
+
 
 		</dependencies>
 	</dependencyManagement>
@@ -151,32 +235,32 @@
 			</plugins>
 	</build>
 
-	<!--使用aliyun的镜像源提升依赖下载速度-->
-	<repositories>
-		<repository>
-			<id>aliyunmaven</id>
-			<name>aliyun</name>
-			<url>https://maven.aliyun.com/repository/public</url>
-		</repository>
-		<repository>
-			<id>central2</id>
-			<name>central2</name>
-			<url>https://repo1.maven.org/maven2/</url>
-		</repository>
-	</repositories>
+<!--	&lt;!&ndash;使用aliyun的镜像源提升依赖下载速度&ndash;&gt;-->
+<!--	<repositories>-->
+<!--		<repository>-->
+<!--			<id>aliyunmaven</id>-->
+<!--			<name>aliyun</name>-->
+<!--			<url>https://maven.aliyun.com/repository/public</url>-->
+<!--		</repository>-->
+<!--		<repository>-->
+<!--			<id>central2</id>-->
+<!--			<name>central2</name>-->
+<!--			<url>https://repo1.maven.org/maven2/</url>-->
+<!--		</repository>-->
+<!--	</repositories>-->
 
-	<!--使用aliyun的镜像源提升插件下载速度-->
-	<pluginRepositories>
-		<pluginRepository>
-			<id>aliyunmaven</id>
-			<name>aliyun</name>
-			<url>https://maven.aliyun.com/repository/public</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>central2</id>
-			<name>central2</name>
-			<url>https://repo1.maven.org/maven2/</url>
-		</pluginRepository>
-	</pluginRepositories>
+<!--	&lt;!&ndash;使用aliyun的镜像源提升插件下载速度&ndash;&gt;-->
+<!--	<pluginRepositories>-->
+<!--		<pluginRepository>-->
+<!--			<id>aliyunmaven</id>-->
+<!--			<name>aliyun</name>-->
+<!--			<url>https://maven.aliyun.com/repository/public</url>-->
+<!--		</pluginRepository>-->
+<!--		<pluginRepository>-->
+<!--			<id>central2</id>-->
+<!--			<name>central2</name>-->
+<!--			<url>https://repo1.maven.org/maven2/</url>-->
+<!--		</pluginRepository>-->
+<!--	</pluginRepositories>-->
 
 </project>
