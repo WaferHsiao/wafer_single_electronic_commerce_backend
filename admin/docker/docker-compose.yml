@@ -1,0 +1,12 @@
+version: '3.1'
+
+services:
+  wafer_admin:
+    build:
+      context: .                # Dockerfile 所在目录
+      dockerfile: Dockerfile
+    image: wafer_commerce_admin:v1.0.0   # 自定义镜像名
+    container_name: wafer_commerce_admin # 容器名称
+    ports:
+      - 8081:8081               # 映射宿主机端口（如你应用监听 8081）
+    working_dir: /usr/local/wafer/program/wafer_commerce_backend
