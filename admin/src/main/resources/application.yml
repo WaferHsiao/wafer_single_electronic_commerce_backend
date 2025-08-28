@@ -11,6 +11,10 @@ spring:
       additional-paths: src/main/java #重启目录
       exclude: WEB-INF/**
 
+logging:
+  file:
+    name: logs/app.log
+
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
