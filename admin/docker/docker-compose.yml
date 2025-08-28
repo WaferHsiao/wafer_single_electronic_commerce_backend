@@ -10,3 +10,5 @@ services:
     ports:
       - 8081:8081               # 映射宿主机端口（如你应用监听 8081）
     working_dir: /usr/local/wafer/program/wafer_commerce_backend
+    environment:
+      - SPRING_PROFILES_ACTIVE=dev

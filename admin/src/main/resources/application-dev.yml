@@ -24,3 +24,7 @@ wx:
     app_id: wx9bd95803d5968a6f
     app_secret: 42f5b5b68459c70fd738cf4bd238c537
     redirect_url: https://5sa2905826.zicp.fun/auth/callback
+
+logging:
+  file:
+    name: /usr/local/wafer/program/wafer_commerce_backend/logs/app.log
